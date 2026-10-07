@@ -1,0 +1,214 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    background-color: #f8fafc;
+    color: #0f172a;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  button,
+  select,
+  [role="button"],
+  input[type="button"],
+  input[type="submit"],
+  input[type="reset"] {
+    cursor: pointer !important;
+  }
+
+  button:disabled,
+  select:disabled,
+  input:disabled {
+    cursor: not-allowed !important;
+  }
+}
+
+/* Custom Scrollbars */
+.sidebar-scroll {
+  overscroll-behavior: contain;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Print CSS optimization */
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 8mm;
+  }
+
+  html, body {
+    background: white !important;
+    color: #0f172a !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    height: auto !important;
+    overflow: visible !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Hide navigation, sidebar, top header, buttons, modal backdrops, toasts, and explicitly marked no-print elements */
+  header, aside, nav, button, .no-print, [aria-label="Close"], [aria-label="Close modal"], [role="backdrop"], .toast-container {
+    display: none !important;
+  }
+
+  /* Reset main layout wrappers for regular page prints */
+  #root, main, .flex-1, .lg\:pl-64, .lg\:pl-20 {
+    padding: 0 !important;
+    margin: 0 !important;
+    max-width: 100% !important;
+    width: 100% !important;
+    float: none !important;
+  }
+
+  /* When printing a receipt modal, hide the main app content in background */
+  body.printing-receipt #root > div > main,
+  body.printing-receipt #root > div > header,
+  body.printing-receipt #root > div > aside {
+    display: none !important;
+  }
+
+  /* Reset Modal Containers for Receipt Printing */
+  .modal-overlay-wrapper {
+    position: static !important;
+    display: block !important;
+    background: transparent !important;
+    backdrop-filter: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 100% !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+
+  .modal-backdrop {
+    display: none !important;
+  }
+
+  .modal-dialog-card {
+    position: static !important;
+    display: block !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: visible !important;
+  }
+
+  .modal-body-container {
+    max-height: none !important;
+    overflow: visible !important;
+    padding: 0 !important;
+  }
+
+  /* Printable Report Cards & Tables Styling */
+  .printable-report {
+    padding: 14px !important;
+    border: 1px solid #cbd5e1 !important;
+    border-radius: 10px !important;
+    box-shadow: none !important;
+    background: white !important;
+    margin-bottom: 16px !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  /* Hide charts in print/PDF output per user request (Export Data & Tables Only) */
+  .printable-chart-card,
+  .printable-chart-container,
+  .recharts-responsive-container,
+  .recharts-wrapper,
+  .recharts-surface {
+    display: none !important;
+  }
+
+  /* Tables styling in print */
+  table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    page-break-inside: auto !important;
+  }
+
+  thead {
+    display: table-header-group !important;
+  }
+
+  tbody {
+    display: table-row-group !important;
+  }
+
+  tr {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  th, td {
+    padding: 6px 8px !important;
+  }
+
+  h1, h2, h3, h4 {
+    page-break-after: avoid !important;
+    break-after: avoid !important;
+  }
+
+  /* ================================================================ */
+  /* RECEIPT PRINTING (Hide All Background UI, Print Only Receipt)    */
+  /* ================================================================ */
+  body.printing-receipt * {
+    visibility: hidden !important;
+  }
+
+  body.printing-receipt #printable-thermal-receipt,
+  body.printing-receipt #printable-thermal-receipt *,
+  body.printing-receipt .printable-receipt,
+  body.printing-receipt .printable-receipt * {
+    visibility: visible !important;
+  }
+
+  body.printing-receipt #printable-thermal-receipt,
+  body.printing-receipt .printable-receipt {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    margin: 10px auto !important;
+    display: block !important;
+    width: 100% !important;
+    max-width: 440px !important;
+    padding: 20px !important;
+    border: 1px solid #cbd5e1 !important;
+    border-radius: 12px !important;
+    background: #ffffff !important;
+    box-shadow: none !important;
+    overflow: visible !important;
+    height: auto !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+}
